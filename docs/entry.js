@@ -1,7 +1,14 @@
 
 (function() {
-	const {jsonp, progressp} = document.currentScript.dataset;
-	let mcount = 0, mods = 6669, scount = 0, sources = 21;
-	const ps = (["2013-3641101577","2014-268435538","2015-2153391498","2021-2353526132","2017-979926018","2016-1517013333","2018-3201991945","2019-3062032619","202302-2469522112","2022-744939338","2020-2672280938","202306-4037219624","202307-2740955144","202309-160284431","latest-2214582933","202308-493114989","202304-405030123","recent-3787484865","202301-898355340","202305-3280349435","202303-2680825493"]).map(k => import(`./${k}.js`).then(m => [m.default, progressp && window[progressp].call(undefined, mcount += m.default.length, mods, ++scount, sources)][0]));
-	Promise.all(ps).then(ds => ({ date: "2023-11-06", skyrim: "1.6.640", data: ds.flat(), sources })).then(d => window[jsonp](d));
+	const { jsonp, progressp } = document.currentScript.dataset;
+	const info = ({"date":"2024-02-27","skyrim":"1.6.1170"});
+	let mcount = 0, mods = 7022, scount = 0, sources = 24;
+	const ps = (["2023-02-871399892","2023-10-1950407518","2021-2249865003","2023-09-689764771","2023-12-63841581","2020-3893824396","2018-1928252639","2022-722260725","2016-3662845244","2014-1133151675","2017-1483029516","2023-03-245480664","2015-1256369343","2019-3590550184","2023-08-2510825819","2023-01-184114872","2013-332065428","recent-332631973","2024-01-6095044","2023-04-3645492458","2023-06-1223323933","2023-07-2356804323","2023-11-302793210","2023-05-1599145225"]).map(key =>
+		import(`./${key}.js`).then(source =>
+			(progressp && window[progressp]?.call(undefined, mcount += source.default.length, mods, ++scount, sources, source.default), source.default)
+		)
+	);
+	Promise.all(ps)
+		.then(sources => ({ ...info, data: sources.flat(), sources: sources.length }))
+		.then(payload => window[jsonp]?.call(undefined, payload));
 })();
