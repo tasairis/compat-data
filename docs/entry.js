@@ -1,9 +1,9 @@
 
 (function() {
 	const { jsonp, progressp } = document.currentScript.dataset;
-	const info = ({"date":"2024-03-26","skyrim":"1.6.1170"});
-	let mcount = 0, mods = 7085, scount = 0, sources = 14;
-	const ps = (["2023-263719848","2021-3048252365","2020-2282780285","2018-1206393470","2022-931048267","2016-561067203","2014-4294275648","2017-900629776","2015-3980233592","2019-3387815489","2013-414531794","2024-02-2622607653","2024-01-2078560599","recent-1753008262"]).map(key =>
+	const info = ({"date":"2024-04-02","skyrim":"1.6.1170"});
+	let mcount = 0, mods = 7108, scount = 0, sources = 15;
+	const ps = (["2023-2359510318","2021-2257353200","2020-2282780285","2018-1206393470","2022-3576218491","2016-3089888370","2014-580305339","2017-3243555216","2015-4154056527","2019-51867596","2013-1418670436","2024-02-1189169730","2024-01-1753966181","2024-03-353453677","recent-2482665663"]).map(key =>
 		import(`./${key}.js`).then(source =>
 			(progressp && window[progressp]?.call(undefined, key, null, mcount += source.default.length, mods, ++scount, sources, source.default), source.default)
 		).catch(error =>
